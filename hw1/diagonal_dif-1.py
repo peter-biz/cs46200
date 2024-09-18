@@ -20,19 +20,23 @@ the input in a separate readme file with problem no.
 
 import numpy as np
 
-def is_square(a):
-    m = np.matrix(a)
-    return m.shape[0] == m.shape[1]
+def num_rows():
+    rows = input("Input number of rows & columns: ")
+    print(rows)
+    return rows
 
-def diagonal_dif(a):
-    if(is_square(a)):
-        return(np.trace(a))
-    else:
-        return("Error, not a square matrix.")
+def diagonal_dif():
+    matrix = []
+    rows = num_rows()
+    print("Enter rows with numbers seperated by spaces")
+    for i in rows:
+        matrix[i] = input("Enter row " + i + ": ")
+
+    #for(int i = 0; i < rows; i ++) { do stuff}
+
+    return matrix
 
     
 #Input must be in this format: [[1,2,3],[4,5,6],[9,8,9]]
-a = np.array(input("Enter the matrix: "))
-print(a)
-print(diagonal_dif(a))
+print(diagonal_dif())
 input("Press Enter to exit")
