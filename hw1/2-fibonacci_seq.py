@@ -6,3 +6,5 @@ By considering the terms in the Fibonacci sequence whose last value does not exc
  on how to accept the input in a separate readme file with problem no.
 
 '''
+import numpy as np
+
