@@ -23,20 +23,32 @@ import numpy as np
 def num_rows():
     rows = input("Input number of rows & columns: ")
     print(rows)
-    return rows
+    return int(rows)
 
-def diagonal_dif():
+def matrix_diag_abs_dif():
     matrix = []
     rows = num_rows()
     print("Enter rows with numbers seperated by spaces")
-    for i in rows:
-        matrix[i] = input("Enter row " + i + ": ")
+    for i in range(rows):
+        row_input = input("Enter row " + str(i+1) + ": ").split(" ")
+        matrix.append([int(element) for element in row_input])
 
-    #for(int i = 0; i < rows; i ++) { do stuff}
+    print("Entered matrix: " + str(matrix))
+    left_diag = np.array(matrix)
 
-    return matrix
+    # Need to flip the matrix around to get the right diagonal
+    flipped_matrix = np.flip(matrix, axis=1)
+    right_diag = np.array(flipped_matrix)
 
+    print("Left Diagonal: " + str(diagonal_dif(left_diag)))
+    print("Right Diagonal: " + str(diagonal_dif(right_diag)))
+
+    abs_dif = abs(diagonal_dif(left_diag) - diagonal_dif(right_diag))
+    return abs_dif
+
+def diagonal_dif(a):
+    return np.trace(a)
     
 #Input must be in this format: [[1,2,3],[4,5,6],[9,8,9]]
-print(diagonal_dif())
+print("Absoulte Difference: " + str(matrix_diag_abs_dif()))
 input("Press Enter to exit")
