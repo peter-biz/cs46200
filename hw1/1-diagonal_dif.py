@@ -17,7 +17,6 @@ The array should be based on user input.
 You will be providing the evaluator with clear instructions on how to accept 
 the input in a separate readme file with problem no. 
 '''
-#TODO: add comments and try-catch/error checking + write readme
 import numpy as np
 
 def matrix_diag_abs_dif():

@@ -3,3 +3,9 @@ There is no required input for this .py file. Run it(it must be in the same fold
 
 ## Reason why I think this graphical represenation is appropriate: 
 I believe this scatter plot is a good way to show off the petal data of the iris dataset because it shows in a clear and readable way the petal length vs petal width by species on the plot. 
+
+## Requires the following packages: 
+* matplotlib
+* numpy
+* pandas
+* csv(base package)
