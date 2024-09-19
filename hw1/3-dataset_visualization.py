@@ -23,27 +23,39 @@ with open('.\iris.data', 'r') as in_file: # Open data.iris with 'r' parameter(re
         for row in read:
             write.writerow(row)
 
-# Utilize matplotlib to select a graphical representation eg. scatter plot, box and whsikers, {chose}, that best explain the features of the data set
-# write why you think that graphical represntation is approriate
-# upload all your .csv, .py and all other files required to run program
-
+# Plot style
 plt.style.use('_mpl-gallery')
 
-# Read csv data
+# Read csv data from iris.csv
 iris = pd.read_csv('.\iris.csv')
 
+colors = ['blue', 'red', 'green'] # Colors for species
+species = iris['Species'].unique() # Get unique species
 
-# This is just a test plot, i want to make it a scatter plot of petal lengths with differnt colored dots representing the species
+# Figure size
 plt.figure(figsize=(10,6))
-plt.scatter(iris['Petal Length'], iris['Species'], marker='o', linestyle='-', color='b', label='Species')
-plt.title('Species by Petal Length')
-plt.xlabel('Petal Length')
-plt.ylabel('Species')
-plt.xticks(rotation=45)
-plt.legend()
-plt.grid()
 
-# Show the plot
-plt.tight_layout()
-plt.show()
+# Loops thru species and plots the respective species with the respective color
+for i, sp in enumerate(species):  
+    subset = iris[iris['Species'] == sp] # Create a subset of the data for curr species 
+    plt.scatter(subset['Petal Length'],  # X-axis
+                subset['Petal Width'],  # Y-axis
+                marker='o', # Uses circle markers on plot
+                color=colors[i % len(colors)],  # Assign color to marker
+                label=sp) # Applies species name to legend
+    
+# Plot titles/labels    
+plt.title('Petal Length vs. Petal Width by Species')
+plt.xlabel('Petal Length(cm)')
+plt.ylabel('Petal Width(cm)') 
+plt.gcf().canvas.manager.set_window_title('Iris Petal Scatterplot') # Changes the plot window title cause i didn't like that it just said "Figure 1"
 
+
+plt.legend() # Species Legend
+plt.grid() # Turns the gridlines off
+plt.tight_layout() # Makes sure the plot stays within the plot window
+plt.show() # Show scatterplot
+
+# Reason why I think this graphical represenation is appropriate: 
+# I believe this scatter plot is a good way to show off the petal data of the iris dataset
+# because it shows in a clear and readable way the petal length vs petal width by species on the plot. 
