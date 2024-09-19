@@ -8,3 +8,20 @@ By considering the terms in the Fibonacci sequence whose last value does not exc
 '''
 import numpy as np
 
+# First two terms of the Fibonacci sequence
+x = 1
+y = 2
+
+# Initialize even_sum variable to hold sum of even terms
+even_sum = 0
+
+# Loop through Fibonacci numbers while the values do not exceed 100,000
+while x <= 100000:
+    # If the term is even, add it to the sum
+    if x % 2 == 0:
+        even_sum += x
+    #  next Fibonacci number
+    y, x = x, y + x
+
+# Output the sum of even-valued terms
+print("Sum of even-valued terms:", even_sum)
