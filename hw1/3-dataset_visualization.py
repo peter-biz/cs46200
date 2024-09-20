@@ -1,4 +1,4 @@
-# Problem 3
+# Problem 3 - Peter Bizouaks - Python version 3.12
 '''You will download iris dataset from this site https://archive.ics.uci.edu/dataset/53/iris
 Using python convert .data files into .csv.
 Utilize matplotlib to select a graphical representation eg. Scatter plot, 

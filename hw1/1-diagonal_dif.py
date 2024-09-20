@@ -1,4 +1,4 @@
-# Problem 1
+# Problem 1 - Peter Bizoukas - Python version 3.12
 '''Given a square matrix, calculate the absolute difference between the sums of its diagonals.
 For example, the square matrix is shown below:
 1 2 3
