@@ -25,7 +25,7 @@ import matplotlib.pyplot as plt
 
 
 def closest_points(pts, k):
-    print(pts, k)
+   print(pts, k)
 
 
 def main():
