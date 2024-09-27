@@ -9,7 +9,9 @@
 
 import numpy as np
 import scipy as sp
-import matplotlib as plt
+import matplotlib.pyplot as plt
+import csv
+import pandas as pd
 
 
 # Conver iris.data to a .csv
@@ -22,3 +24,35 @@ with open('.\iris.data', 'r') as in_file: # Open data.iris with 'r' parameter(re
         for row in read:
             write.writerow(row)
 
+# Read csv data from iris.csv
+iris = pd.read_csv(".\iris.csv")
+
+# Plot Style
+plt.style.use('_mpl-gallery')
+
+# Figure size
+plt.figure(figsize=(10,6))
+
+def train_test(train, test):
+    x = iris['Petal Length']
+    y = iris['Petal Width']
+
+    # Train data
+    train_x = x[:train]
+    train_y = y[:train]
+
+    # Test data 
+    test_x = x[test:]
+    test_y = y[test:]
+
+
+
+
+    
+
+def main():
+    train_test(80, 20) # 80% train, 20% test
+    train_test(70, 30) # 70% train, 30% test
+
+if __name__ == "__main__":
+    main()
