@@ -33,13 +33,23 @@ def convert_to_csv(data, csv_path):
         writer = csv.writer(file)
         writer.writerows(data)
 
+def split_data(data, train_size):
+    np.random.shuffle(data)
+    train_data, test_data = np.split(data, [int(train_size*len(data))])
+    return train_data, test_data
+    
+
+def euclidean_distance(x1, x2):
+    return np.sqrt(np.sum((x1 - x2)**2))
 
 
 
 def main():
     iris = load_iris_data('iris.data')
     convert_to_csv(iris, 'iris.csv')
-    
+
+    # 80% train and 20% test data
+    train_data, test_data = split_data(iris, 0.8)
 
 
 if __name__ == "__main__":
