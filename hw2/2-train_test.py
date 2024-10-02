@@ -39,8 +39,11 @@ def split_data(data, train_size):
     return train_data, test_data
     
 
-def euclidean_distance(x1, x2):
+def euclidean_distance(x1, x2):  # change this to use the problem 1 euc dist
     return np.sqrt(np.sum((x1 - x2)**2))
+
+def knn(train_data, test_data, k):
+    print(k)
 
 
 
@@ -49,7 +52,13 @@ def main():
     convert_to_csv(iris, 'iris.csv')
 
     # 80% train and 20% test data
+    k = 3
     train_data, test_data = split_data(iris, 0.8)
+    knn(train_data, test_data, 3)
+
+    # 70% train and 30% test data
+    train_data, test_data = split_data(iris, 0.7)
+    knn(train_data, test_data, k)
 
 
 if __name__ == "__main__":

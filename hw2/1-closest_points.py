@@ -21,8 +21,6 @@
 import numpy as np
 from scipy.spatial import distance
 
-
-
 def closest_points(pts, k):
     e_distances = []  # List to store Euclidean distances of points from the origin
     sorted_e_distances = []  # List to store sorted Euclidean distances
