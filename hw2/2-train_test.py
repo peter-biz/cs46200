@@ -70,7 +70,7 @@ def confusion_matrix_metrics(y_true, y_pred):
     FN = np.sum((y_true == 1) & (y_pred == 0))  # False Negatives
     
     accuracy = (TP + TN) / (TP + TN + FP + FN) 
-    
+
     if (TP + FN) > 0: # Sensitivity
         sensitivity = TP / (TP + FN)
     else:
@@ -155,7 +155,7 @@ def main():
     plt.tight_layout()
     plt.show()
 
-  
+  #TODO: consider plotting roc curves on seperate figures for better visualization
     
 
 if __name__ == "__main__":
