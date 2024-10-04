@@ -47,17 +47,17 @@ def knn(train_features, train_labels, test_features, k):
     predictions = []
     distances_to_predictions = []
     
-    for test_instance in test_features:
-        distances = [
+    for test_instance in test_features: # For each test instance
+        distances = [ # Calculate distances to all training instances
             (distance.euclidean(test_instance.astype(float), train_instance.astype(float)), label) 
             for train_instance, label in zip(train_features, train_labels)
         ]
         
-        sorted_neighbors = sorted(distances, key=lambda x: x[0])
-        neighbors = [neighbor for _, neighbor in sorted_neighbors[:k]]
-        class_votes = Counter(neighbors)
+        sorted_neighbors = sorted(distances, key=lambda x: x[0]) # Sort by distance
+        neighbors = [neighbor for _, neighbor in sorted_neighbors[:k]] # Get the labels of the k nearest neighbors
+        class_votes = Counter(neighbors) # Count the votes for each class using Counter
         prediction = class_votes.most_common(1)[0][0]  # Predict the most common class
-        predictions.append(prediction)
+        predictions.append(prediction) # Store prediction
         distances_to_predictions.append([d[0] for d in sorted_neighbors[:k]])  # Store distances for ROC
 
     return np.array(predictions), np.array(distances_to_predictions)
@@ -70,19 +70,27 @@ def confusion_matrix_metrics(y_true, y_pred):
     FN = np.sum((y_true == 1) & (y_pred == 0))  # False Negatives
     
     accuracy = (TP + TN) / (TP + TN + FP + FN) 
-    sensitivity = TP / (TP + FN) if (TP + FN) > 0 else 0.0
-    specificity = TN / (TN + FP) if (TN + FP) > 0 else 0.0
+    
+    if (TP + FN) > 0: # Sensitivity
+        sensitivity = TP / (TP + FN)
+    else:
+        sensitivity = 0.0
+
+    if (TN + FP) > 0: # Specificity
+        specificity = TN / (TN + FP)
+    else:
+        specificity = 0.0
     
     return accuracy, sensitivity, specificity
 
 # Update the ROC curve plot function to handle distances
 def plot_roc_curve(y_true, distances, title):
-    fpr, tpr, thresholds = [], [], np.linspace(0, 1, 100)
+    fpr, tpr, thresholds = [], [], np.linspace(0, 1, 100) # Thresholds for ROC curve
     
     for thresh in thresholds:
         y_pred = np.where(np.mean(distances, axis=1) <= thresh, 1, 0)  # Using mean distances as probability threshold
-        _, sensitivity, specificity = confusion_matrix_metrics(y_true, y_pred)
-        fpr.append(1 - specificity)
+        _, sensitivity, specificity = confusion_matrix_metrics(y_true, y_pred) # Calculate metrics
+        fpr.append(1 - specificity) 
         tpr.append(sensitivity)
     
     plt.plot(fpr, tpr, label=f'ROC Curve - {title}')
@@ -95,15 +103,15 @@ def main():
     labels = np.where(labels == 'Iris-versicolor', 1, 0)  # Convert to binary labels
 
     # Split 80-20
-    train_data, test_data = train_test_split(iris_data, test_size=0.2)
-    train_features, train_labels = train_data[:, :-1], train_data[:, -1]
-    train_labels = np.where(train_labels == 'Iris-versicolor', 1, 0)
+    train_data, test_data = train_test_split(iris_data, test_size=0.2) # 80-20 split
+    train_features, train_labels = train_data[:, :-1], train_data[:, -1] # Extract features and labels
+    train_labels = np.where(train_labels == 'Iris-versicolor', 1, 0) # Convert labels to binary
     test_features, test_labels = test_data[:, :-1], test_data[:, -1]
     test_labels = np.where(test_labels == 'Iris-versicolor', 1, 0)
 
     # KNN with k=3
     k = 3
-    predictions, distances = knn(train_features, train_labels, test_features, k)
+    predictions, distances = knn(train_features, train_labels, test_features, k) 
 
     # Metrics
     accuracy, sensitivity, specificity = confusion_matrix_metrics(test_labels, predictions)
@@ -113,8 +121,8 @@ def main():
     print(f"Specificity: {specificity:.2f}")
 
     # Repeat for 70-30 split
-    train_data_70, test_data_30 = train_test_split(iris_data, test_size=0.3)
-    train_features_70, train_labels_70 = train_data_70[:, :-1], train_data_70[:, -1]
+    train_data_70, test_data_30 = train_test_split(iris_data, test_size=0.3) # 70-30 split
+    train_features_70, train_labels_70 = train_data_70[:, :-1], train_data_70[:, -1] 
     train_labels_70 = np.where(train_labels_70 == 'Iris-versicolor', 1, 0)
     test_features_30, test_labels_30 = test_data_30[:, :-1], test_data_30[:, -1]
     test_labels_30 = np.where(test_labels_30 == 'Iris-versicolor', 1, 0)
@@ -127,25 +135,27 @@ def main():
     print(f"Sensitivity: {sensitivity_70:.2f}")
     print(f"Specificity: {specificity_70:.2f}")
 
-    # Plot ROC curves
-    plt.figure()
-    plot_roc_curve(test_labels, distances, '80%-20% Split')
-    plot_roc_curve(test_labels_30, distances_70, '70%-30% Split')
-    plt.plot([0, 1], [0, 1], linestyle='--', label='Random Classifier')
-    plt.xlabel('False Positive Rate')
-    plt.ylabel('True Positive Rate')
-    plt.title('ROC Curves Comparison')
-    plt.legend()
-    plt.tight_layout()
-    plt.show()
-
-    # Print which model is better
+      # Print which model is better
     if accuracy > accuracy_70:
         print("\n80%-20% Split is more accurate")
     elif accuracy == accuracy_70:
         print("\nBoth splits are equally accurate")
     else:
         print("\n70%-30% Split is more accurate")
+
+    # Plot ROC curves
+    plt.figure()
+    plot_roc_curve(test_labels, distances, '80%-20% Split') # Plot ROC curve for 80-20 split
+    plot_roc_curve(test_labels_30, distances_70, '70%-30% Split') # Plot ROC curve for 70-30 split
+    plt.plot([0, 1], [0, 1], linestyle='--', label='Random Classifier')  # Random classifier line
+    plt.xlabel('False Positive Rate') 
+    plt.ylabel('True Positive Rate')
+    plt.title('ROC Curves Comparison')
+    plt.legend()
+    plt.tight_layout()
+    plt.show()
+
+  
     
 
 if __name__ == "__main__":
