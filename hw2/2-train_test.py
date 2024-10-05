@@ -154,9 +154,6 @@ def main():
     plt.legend()
     plt.tight_layout()
     plt.show()
-
-  #TODO: consider plotting roc curves on seperate figures for better visualization
-    
-
+ 
 if __name__ == "__main__":
     main()
