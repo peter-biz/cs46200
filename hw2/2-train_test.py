@@ -147,7 +147,7 @@ def main():
     plt.figure()
     plot_roc_curve(test_labels, distances, '80%-20% Split') # Plot ROC curve for 80-20 split
     plot_roc_curve(test_labels_30, distances_70, '70%-30% Split') # Plot ROC curve for 70-30 split
-    plt.plot([0, 1], [0, 1], linestyle='--', label='Random Classifier')  # Random classifier line
+    plt.plot([0, 1], [0, 1], linestyle='--')  # Random classifier line
     plt.xlabel('False Positive Rate') 
     plt.ylabel('True Positive Rate')
     plt.title('ROC Curves Comparison')
