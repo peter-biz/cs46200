@@ -22,7 +22,7 @@ def main():
     # Split the data into training and testing
     X = data.drop(['median_house_value'], axis=1)
     y = data['median_house_value']
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0) # 80-20 split, random_state for reproducibility
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0) # 80-20 split, random_state for reproducibility, remove for randomness
 
     # Add bias to the input
     X_train['bias'] = 1
