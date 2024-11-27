@@ -89,9 +89,9 @@ def main():
     choice = input("Enter 1 for default test cases, 2 to enter your own test cases: ")
     if choice.strip() == '1': 
         test_cases = [
-        [[0,2,0,0,0,0,0],[0,0,0,2,2,1,0],[0,2,0,0,1,2,0],[0,0,2,2,2,0,2],[0,0,0,0,0,0,0]],
-        [[0,0,0,0],[0,1,2,0],[0,2,0,0]],
-        [[0,0,0],[2,2,0],[1,2,0]]
+        [[0,2,0,0,0,0,0],[0,0,0,2,2,1,0],[0,2,0,0,1,2,0],[0,0,2,2,2,0,2],[0,0,0,0,0,0,0]], # Expected output: 3
+        [[0,0,0,0],[0,1,2,0],[0,2,0,0]], # Expected output: -1
+        [[0,0,0],[2,2,0],[1,2,0]] # Expected output: 10^9
     ]
 
         for grid in test_cases:
